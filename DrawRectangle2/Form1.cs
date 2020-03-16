@@ -22,38 +22,27 @@ namespace DrawRectangle1
 
         Rectangle rect;
 
-        Graphics g;
 
         public Form1()
         {
             InitializeComponent();
             pictureBox1.Cursor = Cursors.Cross;
-            //pictureBox1.Image = DrawRectangle1.Properties.Resources.butterfly;
-
-
-            //g = pictureBox1.CreateGraphics();
-
         }
 
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
-
-
             isClicked = true;
-
-            X = e.X;
+            X = e.X;//координаты
             Y = e.Y;
 
             if ((e.X < rect.X + rect.Width) && (e.X > rect.X))
-                if ((e.Y < rect.Y + rect.Height) && (e.Y > rect.Y))
+                if ((e.Y < rect.Y + rect.Height) && (e.Y > rect.Y)) //если не выходит 
                 {
                     inBounds = true;
 
                     deltaX = e.X - rect.X;
                     deltaY = e.Y - rect.Y;
                 }
-
-            //if (!inBounds) { g.Clear(Color.White); } // очищаем рабочую поверхность
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
@@ -67,14 +56,14 @@ namespace DrawRectangle1
 
             if (isClicked)
             {
-                X1 = e.X;
+                X1 = e.X;//координаты которые получаются при движении мышки
                 Y1 = e.Y;
                 pictureBox1.Invalidate();
             }
 
             if (inBounds)
             {
-                rect.X = e.X - deltaX;
+                rect.X = e.X - deltaX;//прямоугольник
                 rect.Y = e.Y - deltaY;
 
                 pictureBox1.Invalidate();
@@ -89,9 +78,9 @@ namespace DrawRectangle1
 
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
-            Pen pen = new Pen(Color.Black);
+            Pen pen = new Pen(Color.Black);//цвет чёрный
 
-            points[0] = new Point(X, Y);
+            points[0] = new Point(X, Y);//понятия не имею что это 
             points[1] = new Point(X1, Y);
             points[2] = new Point(X1, Y);
             points[3] = new Point(X1, Y1);
@@ -102,8 +91,7 @@ namespace DrawRectangle1
 
             if (!inBounds)
             {
-                e.Graphics.DrawLines(pen, points);
-
+                e.Graphics.DrawLines(pen, points);//рисуем прямоугольники
                 if (X < X1 && Y < Y1) rect = new Rectangle(X, Y, X1 - X, Y1 - Y);
                 if (X1 < X && Y1 < Y) rect = new Rectangle(X1, Y1, X - X1, Y - Y1);
                 if (X1 < X && Y < Y1) rect = new Rectangle(X1, Y, X - X1, Y1 - Y);
